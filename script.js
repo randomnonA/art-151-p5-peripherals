@@ -1,6 +1,9 @@
+let circles = [];
 function setup() {
-  createCanvas(400, 400);
-  
+  createCanvas(890, 800);
+  webcam = createCapture(VIDEO,{flipped:true});
+  webcam.size(840,800)
+  webcam.hide();
 }
 
 function draw() {
@@ -43,10 +46,45 @@ function draw() {
     fill('blue');
   }
   
+  //drawcircles
+  for (let circle of circles) {
+    fill(circle.rColor);
+    ellipse(circle.x, circle.y, 50);
+  }
+  
+  //check if mouse is pressed and draw a cirlce while dragging
+  if(mouseIsPressed) {
+    let newCircle = {
+      x:mouseX,
+      y:mouseY,
+      rColor:color(random(255), random(255), random(255))};
+    circles.push(newCircle);
+    }
+  fill("#D3F553");
+  ellipse(200, 300,100, 150);
+  
+  //draw hat
+  push();
+  translate(200, 200);
+  fill("#D3F553");
+  scale(2);
+  arc(0, 0, 100, 100, PI, 0, CHORD);
+  pop();
+  
+  //draw head
+  fill("#D3F553");
+  ellipse(200, 200, 80);
+  image(webcam, 0, 0);
+  filter(INVERT);
+  //filter(POSTERIZE, 2);
+  //filter(BLUR, 6);
 }
 
+
+
 function mousePressed() {
-  fill('purple');
+  //add a circle where the mouse is
+  //ll('purple');
   //noStroke();
   //triangle(0,0,200, 200, 350, 350);
 }
